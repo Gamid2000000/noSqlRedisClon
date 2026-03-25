@@ -2,6 +2,7 @@ package org.example.handler;
 
 import org.example.command.CommandType;
 import org.example.command.context.CommandContex;
+import org.example.command.context.PingCommandContex;
 import org.example.command.proccesor.CommandProcesor;
 import org.example.common.CommandData;
 import org.example.common.ObjectHolder;
@@ -31,6 +32,7 @@ public abstract class AbstractHandler implements Handler{
         this.commandProcesor = new CommandProcesor();
         this.reader = ObjectHolder.getInstance().getObject(Reader.class);
         this.writer = ObjectHolder.getInstance().getObject(Writer.class);
+        contexts.put(CommandType.PING, PingCommandContex::new);
     }
 
     @Override
