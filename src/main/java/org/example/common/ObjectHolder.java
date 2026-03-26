@@ -1,5 +1,6 @@
 package org.example.common;
 
+import org.example.cache.Cache;
 import org.example.io.Reader;
 import org.example.io.Writer;
 
@@ -14,8 +15,10 @@ public class ObjectHolder {
     private final Map<Class<?>, Object> instances;
 
     private ObjectHolder(){
+        var cache = new Cache();
         var writer = new Writer();
         this.instances = new HashMap<>();
+        instances.put(Cache.class,cache);
         instances.put(Writer.class,writer);
         instances.put(Reader.class,new Reader());
     }

@@ -1,7 +1,6 @@
 package org.example.command.proccesor;
 
-import org.example.command.Command;
-import org.example.command.CommandType;
+import org.example.command.*;
 import org.example.command.context.CommandContex;
 
 import java.io.IOException;
@@ -13,6 +12,11 @@ public class CommandProcesor {
 
     public CommandProcesor() {
         commands = new ConcurrentHashMap<>();
+        commands.put(CommandType.PING,new PingCommand());
+        commands.put(CommandType.ECHO,new EchoCommand());
+        commands.put(CommandType.SET,new SetCommand());
+        commands.put(CommandType.GET,new GetCommond());
+
     }
     @SuppressWarnings("unchecked")
     public <T extends CommandContex> byte[] procces(T context, CommandType commandType)throws IOException {
@@ -21,7 +25,7 @@ public class CommandProcesor {
             return command.execute(context);
         }
         else {
-            throw new IllegalArgumentException("Unknown command type: " + commandType);
+            throw new IllegalArgumentException("Unknown command type:" + commandType);
         }
     }
 }

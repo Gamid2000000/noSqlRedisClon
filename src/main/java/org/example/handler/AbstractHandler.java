@@ -1,7 +1,7 @@
 package org.example.handler;
 
 import org.example.command.CommandType;
-import org.example.command.context.CommandContex;
+import org.example.command.context.*;
 import org.example.command.proccesor.CommandProcesor;
 import org.example.common.CommandData;
 import org.example.common.ObjectHolder;
@@ -31,13 +31,18 @@ public abstract class AbstractHandler implements Handler{
         this.commandProcesor = new CommandProcesor();
         this.reader = ObjectHolder.getInstance().getObject(Reader.class);
         this.writer = ObjectHolder.getInstance().getObject(Writer.class);
+        contexts.put(CommandType.PING, PingCommandContex::new);
+        contexts.put(CommandType.ECHO, EchoCommandContext::new);
+        contexts.put(CommandType.SET, SetCommandContext::new);
+        contexts.put(CommandType.GET, GetCommandContext::new);
+
     }
 
     @Override
     public void handle(DataInputStream inputStream, OutputStream outputStream) throws IOException {
         while (true){
             CommandData commandData = reader.read(inputStream);
-            var commandType = commandData.getCommandType();
+            var commandType = commandData.extractCommandType();
             var context = contexts.get(commandType).apply(commandData);
 
             Supplier<byte[]> command = () ->{

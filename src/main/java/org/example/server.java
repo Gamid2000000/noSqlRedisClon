@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.net.ServerSocket;
 
 
-
 public class server {
     private final int port;
 
