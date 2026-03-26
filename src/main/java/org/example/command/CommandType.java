@@ -3,7 +3,10 @@ package org.example.command;
 import java.util.Arrays;
 
 public enum CommandType {
-    PING("ping");
+    PING("ping"),
+    ECHO("echo"),
+    SET("set"),
+    GET("get");
 
     private final String command;
 
@@ -15,10 +18,10 @@ public enum CommandType {
         return command;
     }
 
-    public static CommandType fronCommand(String currentCommand){
+    public static CommandType fromCommand(String currentCommand){
         return Arrays.stream(CommandType.values())
                 .filter(it -> it.command.equalsIgnoreCase(currentCommand))
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("Unknown command: " + currentCommand));
+                .orElseThrow(() -> new IllegalArgumentException("Unknown command:" + currentCommand));
     }
 }

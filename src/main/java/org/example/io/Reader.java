@@ -47,6 +47,7 @@ public class Reader {
         long commandLength = parsedResult.getCommandLentgh();
         for (int i = 0; i < stringLength; i++) {
             char c = (char) inputStream.readByte();
+            stringBuilder.append(c);
             commandLength++;
 
         }

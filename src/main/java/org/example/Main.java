@@ -6,6 +6,7 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Starting...");
         var port = 6379;
-        new server(port).start();
+        var server = new server(port);
+        server.start();
     }
 }

@@ -29,7 +29,7 @@ public class CommandData {
     }
     public List<String> getParts() {
         if (parts == null){
-            parts = Arrays.stream(command.split(" ")).toList();
+            parts = Arrays.stream(command.trim().split("\\s+")).toList();
         }
         return parts;
     }
@@ -66,12 +66,12 @@ public class CommandData {
         return getParts().size();
     }
 
-    public CommandType getCommandType(){
-        return CommandType.fronCommand(getPart(0));
+    public CommandType extractCommandType(){
+        return CommandType.fromCommand(getPart(0));
     }
 
     public <T> T convertCommand(Function<String, T> converter){
-        return converter.apply(getCommand());
+        return converter.apply(command);
     }
 
 }

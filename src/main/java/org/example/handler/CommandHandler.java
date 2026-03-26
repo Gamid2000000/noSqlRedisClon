@@ -15,6 +15,11 @@ public class CommandHandler extends AbstractHandler implements Runnable{
     public CommandHandler(Socket clientSocket) {
         this.clientSocket = clientSocket;
     }
+    @Override
+    protected void proccesResponse(byte[] response, CommandData commandData, DataInputStream inputStream, OutputStream outputStream) throws IOException {
+        outputStream.write(response);
+        outputStream.flush();
+    }
 
     @Override
     public void run() {
@@ -33,14 +38,9 @@ public class CommandHandler extends AbstractHandler implements Runnable{
                 clientSocket.close();
                 System.out.println("Socket closed");
             } catch (IOException e) {
-                System.out.println("IOExeption:" + e.getMessage() + "");;
+                System.out.println("IOExeption:" + e.getMessage());;
             }
         }
     }
 
-    @Override
-    protected void proccesResponse(byte[] response, CommandData commandData, DataInputStream inputStream, OutputStream outputStream) throws IOException {
-        outputStream.write(response);
-        outputStream.flush();
-    }
 }
